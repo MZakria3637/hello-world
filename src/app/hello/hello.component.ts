@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { LoggerService } from '../logger.service';
 
 @Component({
   selector: "hello",
@@ -28,16 +29,24 @@ import { Component } from "@angular/core";
 </ng-template>
 
 <p [contentEditable]="canEdit">{{ message }}</p>
+{{onLogMe()}}
   `
 
 })
 
 export class HelloComponent {
+  count = 0
   message = "I\'am read only "
   fontColor = "red"
   sayHelloId = "12"
   canClick = false
   canEdit = false
+  constructor(private logger: LoggerService) {
+  }
+  onLogMe() {
+    this.logger.writeCount(this.count)
+    this.count++
+  }
   sayMessage() {
     alert("alert message ")
   }
